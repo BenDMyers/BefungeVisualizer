@@ -18,6 +18,13 @@ td {
     font-weight: bold;
 }
 
+.btn {
+    font-size: 150%;
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .active-cell {
     color: #060606;
     background-color: #2A9FD6;

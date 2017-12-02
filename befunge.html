@@ -5,17 +5,22 @@
         <title>Befunge Visualizer</title>
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/befunge.css">
+        <script src="./css/fa.js"></script>
         <script src="./scripts/jquery-3.2.1.min.js"></script>
         <script src="./scripts/befunge.js"></script>
     </head>
     <body style="text-align: center;">
-        <div id="output" style="width: 100%;">
-
-        </div>
         <div style="width: 100%;">
             <table id="grid" style="width: 100%; height: 100%;"></table>
         </div>
+
         <div id="controls" style="width: 100%;">
+            <button id="step-button" class="btn btn-primary" onclick="step()"><i class="fa fa-step-forward" aria-hidden="true"></i> Step</button>
+            <button id="run-button" class="btn btn-success" onclick="click_run()"><i class="fa fa-forward" aria-hidden="true"></i> Run</button>
+            <button id="stop-button" class="btn btn-danger" onclick="click_stop()"><i class="fa fa-stop" aria-hidden="true"></i> Stop</button>
+        </div>
+
+        <div id="output" style="width: 100%;">
 
         </div>
 
@@ -24,8 +29,9 @@
             const {ipcRenderer} = electron;
 
             ipcRenderer.on('RECEIVE_GRID', (event, grid) => {
-                // document.getElementById('output').innerHTML = grid[0][0];
                 gridToTable(grid);
+                while(!windowReady){}
+                document.getElementById('0-0').className += 'active-cell';
             });
         </script>
     </body>
