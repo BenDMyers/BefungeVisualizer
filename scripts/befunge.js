@@ -6,10 +6,12 @@ var windowReady = false;
 var runner;
 
 funge = {};
-funge.r = 0;
-funge.c = 0;
+funge.r = -1;
+funge.c = -1;
 funge.stringMode = false;
 funge.direction = "right";
+funge.stack = [];
+var firstMove = true;
 
 window.onload = function () {
     windowReady = true;
@@ -42,10 +44,19 @@ function gridToTable(grid) {
 }
 
 function step() {
-    // Clear current cell
-    document.getElementById(`${funge.r}-${funge.c}`).className = '';
-    funge.c = (funge.c + 1) % funge.grid[0].length;
-    document.getElementById(`${funge.r}-${funge.c}`).className = 'active-cell';
+    if(funge.r == -1 || funge.c == -1) {
+        funge.r = 0;
+        funge.c = 0;
+    }
+    else {
+        if(funge.r >= 0 && funge.c >= 0) {document.getElementById(`${funge.r}-${funge.c}`).className = '';}
+        move();
+    }
+    process(funge.grid[funge.r][funge.c]);
+
+    // Color current cell
+    if(funge.stringMode) {document.getElementById(`${funge.r}-${funge.c}`).className = 'active-cell-string-mode';}
+    else {document.getElementById(`${funge.r}-${funge.c}`).className = 'active-cell';}
 }
 
 function click_run() {
