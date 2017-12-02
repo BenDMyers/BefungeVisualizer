@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/index.css">
         <script src="./css/fa.js"></script>
+        <script src="upload.js"></script>
     </head>
     <body style="text-align: center;">
         <div class="container vertical-align" style="height: 100%; width: 100%;">
@@ -21,30 +22,7 @@
         </div>
 
         <script>
-            var dropZone = document.getElementById('drop-zone');
-            var h = document.getElementById('h');
-            var i = document.getElementById('upload-icon');
-            dropZone.ondrop = function(e) {
-                e.preventDefault();
-                this.className = 'upload-drop-zone vertical-align';
-                h.className = '';
-                i.className = "fa fa-upload";
-                console.log(e.dataTransfer.files);
-            }
-
-            dropZone.ondragover = function() {
-                this.className = 'upload-drop-zone drop vertical-align';
-                h.className = 'green-text';
-                i.className = "fa fa-upload green-text";
-                return false;
-            }
-
-            dropZone.ondragleave = function() {
-                this.className = 'upload-drop-zone vertical-align';
-                h.className = '';
-                i.className = 'fa fa-upload'
-                return false;
-            }
+            
         </script>
     </body>
 </html>

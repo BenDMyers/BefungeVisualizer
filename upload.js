@@ -1,8 +1,3 @@
-const electron = require('electron');
-const {app, BrowserWindow, ipcMain} = electron;
-
-let mainWindow;
-
 window.onload = function() {
     var dropZone = document.getElementById('drop-zone');
     var h = document.getElementById('h');
@@ -29,8 +24,3 @@ window.onload = function() {
         return false;
     }
 }
-
-app.on('ready', () => {
-    mainWindow = new BrowserWindow();
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
-});
