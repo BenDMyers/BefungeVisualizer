@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Befunge Visualizer</title>
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/upload.css">
         <script src="./css/fa.js"></script>
         <script src="upload.js"></script>
     </head>
@@ -22,7 +22,17 @@
         </div>
 
         <script>
-            
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+
+            function handleDrop(file) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var text = reader.result;
+                    ipcRenderer.send('FILE_DROPPED', text);
+                }
+                reader.readAsText(file);
+            }
         </script>
     </body>
 </html>

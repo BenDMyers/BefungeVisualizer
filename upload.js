@@ -7,7 +7,7 @@ window.onload = function() {
         this.className = 'upload-drop-zone vertical-align';
         h.className = '';
         i.className = "fa fa-upload";
-        console.log(e.dataTransfer.files);
+        handleDrop(e.dataTransfer.files[0]);
     }
 
     dropZone.ondragover = function() {

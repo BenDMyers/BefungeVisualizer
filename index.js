@@ -2,35 +2,28 @@ const electron = require('electron');
 const {app, BrowserWindow, ipcMain} = electron;
 
 let mainWindow;
-
-window.onload = function() {
-    var dropZone = document.getElementById('drop-zone');
-    var h = document.getElementById('h');
-    var i = document.getElementById('upload-icon');
-    dropZone.ondrop = function(e) {
-        e.preventDefault();
-        this.className = 'upload-drop-zone vertical-align';
-        h.className = '';
-        i.className = "fa fa-upload";
-        console.log(e.dataTransfer.files);
-    }
-
-    dropZone.ondragover = function() {
-        this.className = 'upload-drop-zone drop vertical-align';
-        h.className = 'green-text';
-        i.className = "fa fa-upload green-text";
-        return false;
-    }
-
-    dropZone.ondragleave = function() {
-        this.className = 'upload-drop-zone vertical-align';
-        h.className = '';
-        i.className = 'fa fa-upload'
-        return false;
-    }
-}
+var grid;
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow();
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/upload.html`);
 });
+
+ipcMain.on('FILE_DROPPED', (event, text) => {
+    toGrid(text);
+});
+
+// Converts a multiline string to a 2D array grid
+function toGrid(contents) {
+    grid = contents.split(/[\n|\r]+/);
+    var len = 0;
+    for (var i = 0; i < grid.length; i++) {
+        grid[i] = grid[i].split('');
+        len = Math.max(len, grid[i].length);
+    }
+    for (var i = 0; i < grid.length; i++) {
+        while(grid[i].length < len) {
+            grid[i].push(' ');
+        }
+    }
+}
