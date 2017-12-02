@@ -1,0 +1,22 @@
+{
+  "name": "befungevisualizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "electron": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenDMyers/BefungeVisualizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenDMyers/BefungeVisualizer/issues"
+  },
+  "homepage": "https://github.com/BenDMyers/BefungeVisualizer#readme",
+  "dependencies": {
+    "electron": "^1.7.9"
+  }
+}

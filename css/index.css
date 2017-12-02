@@ -1,0 +1,42 @@
+html, body {
+    height:100%;
+    width:100%;
+    margin:0;
+    color: #777;
+}
+
+/* layout.css Style */
+.upload-drop-zone {
+  border-radius: 25px;
+  height: 80%;
+  width: 100%;
+  border-width: 2px;
+  margin-bottom: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* skin.css Style*/
+.upload-drop-zone {
+  border-radius: 25px;
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center;
+  top: 50%;
+  vertical-align: middle;
+}
+
+.drop {
+    border-color: #20c997;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.green-text {
+    color: #20c997;
+}
