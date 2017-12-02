@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Roboto Mono';
+    font-style: 'normal';
+    src: local('Roboto Mono'), local('RobotoMono-Regular'), url('RobotoMono-Regular.ttf');
+}
+
+.funge {
+    width: 100%;
+    height: 100%;
+}
+
+td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 200%;
+    border: 2px solid #222;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+
+.active-cell {
+    color: #060606;
+    background-color: #2A9FD6;
+}
+
+.active-cell-string-mode {
+    color: #060606;
+    background-color: #77B300;
+}
