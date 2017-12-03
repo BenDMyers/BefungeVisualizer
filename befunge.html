@@ -34,12 +34,18 @@
                 gridToTable(grid);
             });
 
-            ipcRenderer.on('CHANGE_SPECS', (event, path) => {
+            ipcRenderer.on('CHANGE_SPECS', (event, path, returnTitle) => {
                 document.querySelector('head').removeChild(document.getElementById('specs'));
                 var newSpecs = document.createElement('script');
+                newSpecs.async = false;
                 newSpecs.setAttribute('id', 'specs');
                 newSpecs.setAttribute('src', path);
                 document.querySelector('head').appendChild(newSpecs);
+                newSpecs.onload = function() {
+                    if(returnTitle) {
+                        ipcRenderer.send('SEND_TITLE', path, title());
+                    }
+                }
                 funge.path = path;
             });
         </script>

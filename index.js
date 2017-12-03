@@ -1,8 +1,9 @@
 const electron = require('electron');
-const {app, BrowserWindow, ipcMain, ipcRenderer, Menu, dialog} = electron;
+const {app, BrowserWindow, ipcMain, ipcRenderer, Menu, MenuItem, dialog} = electron;
 
 let mainWindow;
 var grid;
+
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow();
@@ -82,10 +83,21 @@ const menuTemplate = [
             },
             {
                 label: 'Load Specs',
-                click() {
-                    var path = dialog.showOpenDialog({properties: ['openFile']});
-                    mainWindow.webContents.send('CHANGE_SPECS', path);
-                }
+                submenu: [
+                    {
+                        label: 'Load New Specs',
+                        click() {
+                            var path = dialog.showOpenDialog({properties: ['openFile']});
+                            mainWindow.webContents.send('CHANGE_SPECS', path, true);
+                        }
+                    },
+                    {
+                        label: 'Befunge 93',
+                        click() {
+                            mainWindow.webContents.send('CHANGE_SPECS', "./config/befunge93.js", false);
+                        }
+                    }
+                ]
             }
         ]
     }
@@ -112,3 +124,15 @@ if (process.env.NODE_ENV !== 'production') {
         ]
     });
 }
+
+ipcMain.on('SEND_TITLE', (event, path, title) => {
+    console.log(event);
+    menuTemplate[0].submenu[1].submenu.push({
+        label: `${title}`,
+        click() {
+            mainWindow.webContents.send('CHANGE_SPECS', `${path}`, false);
+        }
+    })
+    const mainMenu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(mainMenu);
+});
