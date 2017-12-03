@@ -3,7 +3,6 @@ var stepButton;
 var runButton;
 var stopButton;
 var windowReady = false;
-var runner;
 
 funge = {};
 funge.r = -1;
@@ -11,6 +10,7 @@ funge.c = -1;
 funge.stringMode = false;
 funge.direction = "right";
 funge.stack = [];
+funge.runner;
 var firstMove = true;
 
 window.onload = function () {
@@ -54,20 +54,22 @@ function step() {
     }
     process(funge.grid[funge.r][funge.c]);
 
-    // Color current cell
-    if(funge.stringMode) {document.getElementById(`${funge.r}-${funge.c}`).className = 'active-cell-string-mode';}
-    else {document.getElementById(`${funge.r}-${funge.c}`).className = 'active-cell';}
+    if(funge.r >= 0 && funge.c >= 0) {
+        // Color current cell
+        if(funge.stringMode) {document.getElementById(`${funge.r}-${funge.c}`).className = 'active-cell-string-mode';}
+        else {document.getElementById(`${funge.r}-${funge.c}`).className = 'active-cell';}
+    }
 }
 
 function click_run() {
     stepButton.style.display = "none";
     runButton.style.display = "none";
     stopButton.style.display = "inline";
-    runner = setInterval(step, 250);
+    funge.runner = setInterval(step, 250);
 }
 
 function click_stop() {
-    clearInterval(runner);
+    clearInterval(funge.runner);
     stepButton.style.display = "inline";
     stopButton.style.display = "none";
     runButton.style.display = "inline";

@@ -34,3 +34,15 @@ td {
     color: #060606;
     background-color: #77B300;
 }
+
+.output {
+    color: white;
+    padding: 30px;
+    text-align: left;
+    font-size: 300%;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.green-text {
+    color: #77B300;
+}

@@ -43,3 +43,8 @@ function move() {
 
     }
 }
+
+function output(out) {
+    document.getElementById('output').textContent += out;
+    console.log(out);
+}

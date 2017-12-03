@@ -25,6 +25,15 @@ function process(instr) {
         case 'v':
             down();
             break;
+        case ',':
+            output(String.fromCharCode(funge.stack.pop()));
+            break;
+        case '@':
+            document.getElementById(`${funge.r}-${funge.c}`).className = '';
+            funge.r = -1;
+            funge.c = -1;
+            funge.direction = "right";
+            if(funge.runner) {click_stop();}
         default:
             break;
     }
