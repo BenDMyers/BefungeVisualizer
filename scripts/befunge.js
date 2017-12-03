@@ -47,6 +47,7 @@ function step() {
     if(funge.r == -1 || funge.c == -1) {
         funge.r = 0;
         funge.c = 0;
+        output.textContent = '';
     }
     else {
         if(funge.r >= 0 && funge.c >= 0) {document.getElementById(`${funge.r}-${funge.c}`).className = '';}
@@ -65,7 +66,7 @@ function click_run() {
     stepButton.style.display = "none";
     runButton.style.display = "none";
     stopButton.style.display = "inline";
-    funge.runner = setInterval(step, 250);
+    funge.runner = setInterval(step, 200);
 }
 
 function click_stop() {

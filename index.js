@@ -1,11 +1,12 @@
 const electron = require('electron');
-const {app, BrowserWindow, ipcMain, ipcRenderer} = electron;
+const {app, BrowserWindow, ipcMain, ipcRenderer, Menu, dialog} = electron;
 
 let mainWindow;
 var grid;
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow();
+    Menu.setApplicationMenu(null);
     mainWindow.loadURL(`file://${__dirname}/upload.html`);
 });
 
@@ -13,6 +14,8 @@ ipcMain.on('FILE_DROPPED', (event, text) => {
     toGrid(text);
     sanitizeGrid();
     mainWindow.loadURL(`file://${__dirname}/befunge.html`);
+    const mainMenu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(mainMenu);
     mainWindow.webContents.on('did-finish-load', function() {
  	      mainWindow.webContents.send('RECEIVE_GRID', grid);
       });
@@ -64,4 +67,48 @@ function toGrid(contents) {
             grid[i].push(' ');
         }
     }
+}
+
+const menuTemplate = [
+    {
+        label: 'File',
+        submenu: [
+            {
+                label: 'Load Funge',
+                click() {
+                    mainWindow = new BrowserWindow();
+                    mainWindow.loadURL(`file://${__dirname}/upload.html`);
+                }
+            },
+            {
+                label: 'Load Specs',
+                click() {
+                    var path = dialog.showOpenDialog({properties: ['openFile']});
+                    mainWindow.webContents.send('CHANGE_SPECS', path);
+                }
+            }
+        ]
+    }
+];
+
+// Account for macOS automatically subsuming first menu item
+if (process.platform === 'darwin') {
+    menuTemplate.unshift({});
+}
+
+// Reenable dev tools if not in prod
+if (process.env.NODE_ENV !== 'production') {
+    menuTemplate.push({
+        label: 'Developer',
+        submenu: [
+            {role: 'reload'},
+            {
+                label: 'Toggle Developer Tools',
+                accelerator: process.platform === 'darwin' ? 'Command+Alt+I' : 'Ctrl+Shift+I',
+                click(item, focusedWindow) {
+                    focusedWindow.toggleDevTools();
+                }
+            }
+        ]
+    });
 }

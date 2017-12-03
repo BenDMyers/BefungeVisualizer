@@ -1,4 +1,6 @@
 funge.title = "Befunge-93";
+funge.path = "./config/befunge93.js";
+
 
 function process(instr) {
     if(instr == "&quot;" || instr == '"') {

@@ -9,7 +9,7 @@
         <script src="./css/fa.js"></script>
         <script src="./scripts/jquery-3.2.1.min.js"></script>
         <script src="./scripts/befunge.js"></script>
-        <script src="./config/befunge93.js"></script>
+        <script id="specs" src="./config/befunge93.js"></script>
     </head>
     <body style="text-align: center;">
         <div style="width: 100%;">
@@ -23,8 +23,7 @@
         </div>
 
         <div class="well output">
-            <span class="green-text">&gt;</span>
-            <span id="output"></span>
+            <p style="word-wrap: break-word"><span class="green-text">&gt;&nbsp;</span><span id="output" style="word-wrap: break-word;"></span></p>
         </div>
 
         <script>
@@ -33,6 +32,15 @@
 
             ipcRenderer.on('RECEIVE_GRID', (event, grid) => {
                 gridToTable(grid);
+            });
+
+            ipcRenderer.on('CHANGE_SPECS', (event, path) => {
+                document.querySelector('head').removeChild(document.getElementById('specs'));
+                var newSpecs = document.createElement('script');
+                newSpecs.setAttribute('id', 'specs');
+                newSpecs.setAttribute('src', path);
+                document.querySelector('head').appendChild(newSpecs);
+                funge.path = path;
             });
         </script>
     </body>
