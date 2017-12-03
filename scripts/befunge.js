@@ -47,7 +47,7 @@ function step() {
     if(funge.r == -1 || funge.c == -1) {
         funge.r = 0;
         funge.c = 0;
-        output.textContent = '';
+        document.getElementById('output').innerHTML = '';
     }
     else {
         if(funge.r >= 0 && funge.c >= 0) {document.getElementById(`${funge.r}-${funge.c}`).className = '';}
